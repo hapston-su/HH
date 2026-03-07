@@ -73,3 +73,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Block this specific oversized file
+Assets/Low Poly Furniture/Models/Lantern/Lantern_01_4k.blend.zip
