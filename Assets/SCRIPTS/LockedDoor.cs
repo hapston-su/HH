@@ -8,6 +8,8 @@ public class LockedDoor : MonoBehaviour
     public float openAngle = 90f;
     public float speed = 2f;
 
+    public CreepyDollController doll;   // reference to the doll
+
     private bool opening = false;
     private Quaternion closedRot;
     private Quaternion openRot;
@@ -24,11 +26,21 @@ public class LockedDoor : MonoBehaviour
         {
             Debug.Log("Door unlocked!");
             opening = true;
+
+            if (doll != null)
+            {
+                Invoke(nameof(ActivateDoll), 5f); // wait 5 seconds
+            }
         }
         else
         {
             Debug.Log("Door is locked. Find the key.");
         }
+    }
+
+    void ActivateDoll()
+    {
+        doll.ActivateDoll();
     }
 
     void Update()
