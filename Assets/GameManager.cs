@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private WebSocketClient webSocketClient;
 
     [Header("Game Status")]
-    [SerializeField] private bool gameStarted = false;
-    [SerializeField] private bool exitedSuccessfully = false;
-    [SerializeField] private bool gameOver = false;
-    [SerializeField] private bool gotKey = false;
-    [SerializeField] private bool gotMasterKey = false;
+    [SerializeField] private bool gameStarted;
+    [SerializeField] private bool exitedSuccessfully;
+    [SerializeField] private bool gameOver;
+    [SerializeField] private bool gotKey;
+    [SerializeField] private bool gotMasterKey;
 
     public bool GameStarted => gameStarted;
     public bool ExitedSuccessfully => exitedSuccessfully;
@@ -53,6 +53,18 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Started");
     }
 
+    public void ResetGameStatuses()
+    {
+        gameStarted = false;
+        exitedSuccessfully = false;
+        gameOver = false;
+        gotKey = false;
+        gotMasterKey = false;
+
+        SendAllStatuses();
+        Debug.Log("Game statuses reset");
+    }
+
     public void PlayerExitedSuccessfully()
     {
         exitedSuccessfully = true;
@@ -86,6 +98,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("Player Got Key");
     }
 
+    public void PlayerLostKey()
+    {
+        if (!gotKey)
+            return;
+
+        gotKey = false;
+        SendStatus("GOT_KEY", gotKey);
+
+        Debug.Log("Player Lost Key");
+    }
+
     public void PlayerGotMasterKey()
     {
         if (gotMasterKey)
@@ -97,16 +120,15 @@ public class GameManager : MonoBehaviour
         Debug.Log("Player Got Master Key");
     }
 
-    public void ResetGameStatuses()
+    public void PlayerLostMasterKey()
     {
-        gameStarted = false;
-        exitedSuccessfully = false;
-        gameOver = false;
-        gotKey = false;
-        gotMasterKey = false;
+        if (!gotMasterKey)
+            return;
 
-        SendAllStatuses();
-        Debug.Log("Game statuses reset");
+        gotMasterKey = false;
+        SendStatus("GOT_MASTER_KEY", gotMasterKey);
+
+        Debug.Log("Player Lost Master Key");
     }
 
     public void SetGameStarted(bool value)
@@ -157,11 +179,11 @@ public class GameManager : MonoBehaviour
     {
         if (webSocketClient != null)
         {
-            webSocketClient.SetStatus(statusName, value);
+            webSocketClient.SendStatus(statusName, value);
         }
         else
         {
-            Debug.LogWarning("WebSocketClient reference missing in GameManager");
+            Debug.LogWarning("WebSocketClient reference missing in GameManager.");
         }
     }
 }
