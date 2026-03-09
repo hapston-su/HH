@@ -7840,6 +7840,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100056, guid: 1b4c484e60e5bb644b04c52a7ba782da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1766855206}
+    - targetCorrespondingSourceObject: {fileID: 100002, guid: 1b4c484e60e5bb644b04c52a7ba782da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1368995016}
     - targetCorrespondingSourceObject: {fileID: 100028, guid: 1b4c484e60e5bb644b04c52a7ba782da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1463636895}
@@ -16003,7 +16006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 97d8a0925e7343a47a72f521948014d0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.241
+      value: 1.199
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 97d8a0925e7343a47a72f521948014d0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -16328,7 +16331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 0669f3d8f4b119f418a4bbe061cc198f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.058
+      value: 1.092
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 0669f3d8f4b119f418a4bbe061cc198f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18073,6 +18076,33 @@ Transform:
   - {fileID: 1126331531}
   m_Father: {fileID: 1895363968}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1368995012 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100002, guid: 1b4c484e60e5bb644b04c52a7ba782da, type: 3}
+  m_PrefabInstance: {fileID: 630013016}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1368995016
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368995012}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300048, guid: 1b4c484e60e5bb644b04c52a7ba782da, type: 3}
 --- !u!1001 &1373153106
 PrefabInstance:
   m_ObjectHideFlags: 0
