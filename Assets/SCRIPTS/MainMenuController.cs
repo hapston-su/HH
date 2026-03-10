@@ -5,6 +5,8 @@ public class MainMenuController : MonoBehaviour
 {
     public GameObject menuCanvas;
     public InputActionReference startActionReference;
+    private GameManager gm;
+
 
     void OnEnable()
     {
@@ -20,6 +22,7 @@ public class MainMenuController : MonoBehaviour
     {
         Time.timeScale = 0f;   // pause the game
         menuCanvas.SetActive(true);
+        gm = FindFirstObjectByType<GameManager>();
     }
 
     public void StartGame()
@@ -31,6 +34,7 @@ public class MainMenuController : MonoBehaviour
     public void ExitGame()
     {
         Debug.Log("Exiting game");
+        gm.RestartGame();
 
         Application.Quit();
     }
