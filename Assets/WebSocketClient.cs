@@ -98,10 +98,6 @@ public class WebSocketClient : MonoBehaviour
         string value = msg.Substring(separatorIndex + 1).Trim();
 
         if (type == "restart_button" && value == "1")
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
         {
             Debug.Log("ESP32 Restart Button Pressed");
 
@@ -120,19 +116,12 @@ public class WebSocketClient : MonoBehaviour
             }
         }
         else if (type == "button")
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
         {
             Debug.Log("ESP32 Restart Button Pressed");
 
             if (GameManager.Instance != null)
             {
-<<<<<<< Updated upstream
                 Debug.Log("ESP32 Generic Button Pressed");
-=======
-                GameManager.Instance.RestartGame();
->>>>>>> Stashed changes
             }
         }
         else if (type == "key_button" && value == "1")
@@ -141,25 +130,12 @@ public class WebSocketClient : MonoBehaviour
 
             if (GameManager.Instance != null)
             {
-<<<<<<< Updated upstream
                 Debug.Log("ESP32 Generic Button Released");
             }
         }
         else
         {
-            Debug.Log("Unknown message received: " + msg);
-=======
-                GameManager.Instance.PlayerGotKey();
-            }
-        }
-        else if (type == "button")
-        {
             Debug.Log("Generic ESP32 button message: " + value);
->>>>>>> Stashed changes
-=======
-        {
-            Debug.Log("Generic ESP32 button message: " + value);
->>>>>>> Stashed changes
         }
     }
 }
