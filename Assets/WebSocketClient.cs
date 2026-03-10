@@ -115,6 +115,15 @@ public class WebSocketClient : MonoBehaviour
                 GameManager.Instance.PlayerGotKey();
             }
         }
+        else if (type == "need_help_clear" && value == "1")
+        {
+            Debug.Log("ESP32 Help Clear Button Pressed");
+
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.ClearHelpRequest();
+            }
+        }
         else if (type == "button")
         {
             if (value == "1")
@@ -128,7 +137,7 @@ public class WebSocketClient : MonoBehaviour
         }
         else
         {
-            Debug.Log("Generic ESP32 button message: " + value);
+            Debug.Log("Unknown message received: " + msg);
         }
     }
 }

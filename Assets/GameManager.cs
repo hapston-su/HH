@@ -171,7 +171,6 @@ public class GameManager : MonoBehaviour
         SendStatus("GAME_STARTED", gameStarted);
     }
 
-
     public void SetExitedSuccessfully(bool value)
     {
         exitedSuccessfully = value;
