@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,12 +14,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool gameOver;
     [SerializeField] private bool gotKey;
     [SerializeField] private bool gotMasterKey;
+    [SerializeField] private bool needHelp;
 
     public bool GameStarted => gameStarted;
     public bool ExitedSuccessfully => exitedSuccessfully;
     public bool GameOver => gameOver;
     public bool GotKey => gotKey;
     public bool GotMasterKey => gotMasterKey;
+    public bool NeedHelp => needHelp;
 
     private void Awake()
     {
@@ -48,6 +51,7 @@ public class GameManager : MonoBehaviour
         gameOver = false;
         gotKey = false;
         gotMasterKey = false;
+        needHelp = false;
 
         SendAllStatuses();
         Debug.Log("Game Started");
@@ -60,18 +64,30 @@ public class GameManager : MonoBehaviour
         gameOver = false;
         gotKey = false;
         gotMasterKey = false;
+        needHelp = false;
 
         SendAllStatuses();
         Debug.Log("Game statuses reset");
+    }
+
+    public void RestartGame()
+    {
+        Debug.Log("Restart requested from ESP32");
+        ResetGameStatuses();
+
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex);
     }
 
     public void PlayerExitedSuccessfully()
     {
         exitedSuccessfully = true;
         gameOver = false;
+        needHelp = false;
 
         SendStatus("EXITED_SUCCESSFULLY", exitedSuccessfully);
         SendStatus("GAME_OVER", gameOver);
+        SendStatus("NEED_HELP", needHelp);
 
         Debug.Log("Player Exited Successfully");
     }
@@ -131,6 +147,24 @@ public class GameManager : MonoBehaviour
         Debug.Log("Player Lost Master Key");
     }
 
+    public void SetNeedHelp(bool value)
+    {
+        needHelp = value;
+        SendStatus("NEED_HELP", needHelp);
+
+        Debug.Log("Need Help set to: " + value);
+    }
+
+    public void RequestHelp()
+    {
+        SetNeedHelp(true);
+    }
+
+    public void ClearHelpRequest()
+    {
+        SetNeedHelp(false);
+    }
+
     public void SetGameStarted(bool value)
     {
         gameStarted = value;
@@ -173,6 +207,7 @@ public class GameManager : MonoBehaviour
         SendStatus("GAME_OVER", gameOver);
         SendStatus("GOT_KEY", gotKey);
         SendStatus("GOT_MASTER_KEY", gotMasterKey);
+        SendStatus("NEED_HELP", needHelp);
     }
 
     private void SendStatus(string statusName, bool value)
