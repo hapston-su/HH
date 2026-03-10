@@ -94,19 +94,41 @@ public class WebSocketClient : MonoBehaviour
         if (separatorIndex < 0)
             return;
 
-        string type = msg.Substring(0, separatorIndex);
-        string value = msg.Substring(separatorIndex + 1);
+        string type = msg.Substring(0, separatorIndex).Trim().ToLower();
+        string value = msg.Substring(separatorIndex + 1).Trim();
 
-        if (type.Equals("button", StringComparison.OrdinalIgnoreCase))
+        if (type == "restart_button" && value == "1")
+        {
+            Debug.Log("ESP32 Restart Button Pressed");
+
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.RestartGame();
+            }
+        }
+        else if (type == "key_button" && value == "1")
+        {
+            Debug.Log("ESP32 Key Button Pressed");
+
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.PlayerGotKey();
+            }
+        }
+        else if (type == "button")
         {
             if (value == "1")
             {
-                Debug.Log("ESP32 Button Pressed");
+                Debug.Log("ESP32 Generic Button Pressed");
             }
             else if (value == "0")
             {
-                Debug.Log("ESP32 Button Released");
+                Debug.Log("ESP32 Generic Button Released");
             }
+        }
+        else
+        {
+            Debug.Log("Unknown message received: " + msg);
         }
     }
 }
