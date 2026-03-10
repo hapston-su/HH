@@ -15,6 +15,7 @@ public class VRMenuSpawner : MonoBehaviour
     void Start()
     {
         playerCamera = Camera.main.transform;
+        menuObject.SetActive(true);
         PositionMenuInFrontOfPlayer();
     }
 
@@ -34,9 +35,9 @@ public class VRMenuSpawner : MonoBehaviour
 
         // Smoothly move the menu to the target position
         menuObject.transform.position = Vector3.Lerp(
-            menuObject.transform.position,
-            targetPosition,
-            Time.deltaTime * followSpeed
+        menuObject.transform.position,
+        targetPosition,
+        Time.unscaledDeltaTime * followSpeed
         );
 
         // Smoothly rotate menu to always face the player
@@ -44,9 +45,9 @@ public class VRMenuSpawner : MonoBehaviour
             menuObject.transform.position - playerCamera.position
         );
         menuObject.transform.rotation = Quaternion.Slerp(
-            menuObject.transform.rotation,
-            targetRotation,
-            Time.deltaTime * followSpeed
+        menuObject.transform.rotation,
+        targetRotation,
+        Time.unscaledDeltaTime * followSpeed
         );
     }
 
