@@ -3229,7 +3229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &224700680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25475,8 +25475,8 @@ MonoBehaviour:
   player: {fileID: 1373153107}
   flashlight: {fileID: 1750714822}
   activationDelay: 5
-  teleportInterval: 3
-  teleportDistance: 2
+  teleportInterval: 2
+  teleportDistance: 1
 --- !u!54 &1676119284
 Rigidbody:
   m_ObjectHideFlags: 0
