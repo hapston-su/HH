@@ -40,7 +40,7 @@ public class ChooseLightCookie : MonoBehaviour
 
     void ChooseCookie()
     {
-        if (Input.GetKeyDown(_keyCode))
+        // if (Input.GetKeyDown(_keyCode))
         {
             _scroolList += 1;
 

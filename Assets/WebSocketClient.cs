@@ -128,7 +128,7 @@ public class WebSocketClient : MonoBehaviour
         }
         else
         {
-            Debug.Log("Unknown message received: " + msg);
+            Debug.Log("Generic ESP32 button message: " + value);
         }
     }
 }

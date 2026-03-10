@@ -1,8 +1,20 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MainMenuController : MonoBehaviour
 {
     public GameObject menuCanvas;
+    public InputActionReference startActionReference;
+
+    void OnEnable()
+    {
+        startActionReference.action.performed += ctx => StartGame();
+    }
+
+    void OnDisable()
+    {
+        startActionReference.action.performed -= ctx => StartGame();
+    }
 
     void Start()
     {
