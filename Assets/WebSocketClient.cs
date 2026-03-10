@@ -99,6 +99,9 @@ public class WebSocketClient : MonoBehaviour
 
         if (type == "restart_button" && value == "1")
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
         {
             Debug.Log("ESP32 Restart Button Pressed");
 
@@ -117,6 +120,7 @@ public class WebSocketClient : MonoBehaviour
             }
         }
         else if (type == "button")
+<<<<<<< Updated upstream
 =======
 >>>>>>> Stashed changes
         {
@@ -149,6 +153,10 @@ public class WebSocketClient : MonoBehaviour
             }
         }
         else if (type == "button")
+        {
+            Debug.Log("Generic ESP32 button message: " + value);
+>>>>>>> Stashed changes
+=======
         {
             Debug.Log("Generic ESP32 button message: " + value);
 >>>>>>> Stashed changes
