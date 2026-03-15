@@ -16267,13 +16267,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 451180c0f92c28e478d4ef8a41dfa483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  webSocketClient: {fileID: 0}
+  webSocketClient: {fileID: 1637794640}
   gameStarted: 0
   exitedSuccessfully: 0
   gameOver: 0
   gotKey: 0
   gotMasterKey: 0
   needHelp: 0
+  torchOn: 0
 --- !u!4 &1064395096
 Transform:
   m_ObjectHideFlags: 0
@@ -20350,9 +20351,21 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: KeyPickup, Assembly-CSharp
-        m_MethodName: PickUpKey
+      - m_Target: {fileID: 1172672542}
+        m_TargetAssemblyTypeName: Room1Key, Assembly-CSharp
+        m_MethodName: PickupKey
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1064395095}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: PlayerGotKey
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22908,7 +22921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
   m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 50
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
@@ -22917,7 +22930,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &1388661315
 Canvas:
   m_ObjectHideFlags: 0
@@ -22948,15 +22961,15 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388661311}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: -2.7053}
   m_LocalScale: {x: 0.9, y: 0.33, z: 0.81}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1002796284}
   - {fileID: 1101582610}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 81.41}
@@ -29238,7 +29251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4376499010767969945, guid: f63e65675a6e1494f940b88d554ba138, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4376499010767969945, guid: f63e65675a6e1494f940b88d554ba138, type: 3}
       propertyPath: lightCookie.Array.size
@@ -29367,6 +29380,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1750714830}
         m_TargetAssemblyTypeName: ElectricTorchOnOff, Assembly-CSharp
+        m_MethodName: ToggleTorch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1064395095}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: ToggleTorch
         m_Mode: 1
         m_Arguments:
@@ -30159,14 +30184,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44aad9b11cbdb48a3857e76677747de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LockedDoor
-  inventory: {fileID: 0}
-  door: {fileID: 1837601626}
-  openAngle: 90
-  speed: 2
-  doll: {fileID: 1676119282}
-  opening: 0
-  closedRot: {x: 0, y: 0, z: 0, w: 0}
-  openRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1837601628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30215,9 +30232,21 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1837601627}
-        m_TargetAssemblyTypeName: LockedDoor, Assembly-CSharp
+      - m_Target: {fileID: 1837601632}
+        m_TargetAssemblyTypeName: Room2Door, Assembly-CSharp
         m_MethodName: TryOpenDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1064395095}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: PlayerExitedSuccessfully
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
