@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private WebSocketClient webSocketClient;
-    [SerializeField] private ElectricTorchHighPoly electricTorch;
+    [SerializeField] private GameObject electricTorch;
 
     [Header("Game Status")]
     [SerializeField] private bool gameStarted;
@@ -37,14 +37,10 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         if (webSocketClient == null)
-        {
             webSocketClient = FindFirstObjectByType<WebSocketClient>();
-        }
 
         if (electricTorch == null)
-        {
-            electricTorch = FindFirstObjectByType<ElectricTorchHighPoly>();
-        }
+            electricTorch = GameObject.Find("Electric Torch HighPoly");
     }
 
     private void Start()
@@ -62,9 +58,7 @@ public class GameManager : MonoBehaviour
         needHelp = false;
 
         if (torchOn)
-        {
             SetTorch(false);
-        }
 
         SendAllStatuses();
         Debug.Log("Game Started");
@@ -80,9 +74,7 @@ public class GameManager : MonoBehaviour
         needHelp = false;
 
         if (torchOn)
-        {
             SetTorch(false);
-        }
 
         SendAllStatuses();
         Debug.Log("Game statuses reset");
@@ -91,6 +83,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Debug.Log("Restart requested from ESP32");
+
         ResetGameStatuses();
 
         Scene currentScene = SceneManager.GetActiveScene();
@@ -123,8 +116,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerGotKey()
     {
-        if (gotKey)
-            return;
+        if (gotKey) return;
 
         gotKey = true;
         SendStatus("GOT_KEY", gotKey);
@@ -134,8 +126,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerLostKey()
     {
-        if (!gotKey)
-            return;
+        if (!gotKey) return;
 
         gotKey = false;
         SendStatus("GOT_KEY", gotKey);
@@ -145,8 +136,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerGotMasterKey()
     {
-        if (gotMasterKey)
-            return;
+        if (gotMasterKey) return;
 
         gotMasterKey = true;
         SendStatus("GOT_MASTER_KEY", gotMasterKey);
@@ -156,8 +146,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerLostMasterKey()
     {
-        if (!gotMasterKey)
-            return;
+        if (!gotMasterKey) return;
 
         gotMasterKey = false;
         SendStatus("GOT_MASTER_KEY", gotMasterKey);
@@ -183,36 +172,6 @@ public class GameManager : MonoBehaviour
         SetNeedHelp(false);
     }
 
-    public void SetGameStarted(bool value)
-    {
-        gameStarted = value;
-        SendStatus("GAME_STARTED", gameStarted);
-    }
-
-    public void SetExitedSuccessfully(bool value)
-    {
-        exitedSuccessfully = value;
-        SendStatus("EXITED_SUCCESSFULLY", exitedSuccessfully);
-    }
-
-    public void SetGameOver(bool value)
-    {
-        gameOver = value;
-        SendStatus("GAME_OVER", gameOver);
-    }
-
-    public void SetGotKey(bool value)
-    {
-        gotKey = value;
-        SendStatus("GOT_KEY", gotKey);
-    }
-
-    public void SetGotMasterKey(bool value)
-    {
-        gotMasterKey = value;
-        SendStatus("GOT_MASTER_KEY", gotMasterKey);
-    }
-
     public void SetTorch(bool value)
     {
         if (torchOn == value)
@@ -224,11 +183,11 @@ public class GameManager : MonoBehaviour
 
         if (electricTorch != null)
         {
-            electricTorch.ToggleTorch();
+            electricTorch.SendMessage("ToggleTorch", SendMessageOptions.DontRequireReceiver);
         }
         else
         {
-            Debug.LogWarning("ElectricTorchHighPoly reference missing in GameManager.");
+            Debug.LogWarning("Electric Torch HighPoly not found.");
         }
     }
 
@@ -260,7 +219,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("WebSocketClient reference missing in GameManager.");
+            Debug.LogWarning("WebSocketClient reference missing.");
         }
     }
 }
