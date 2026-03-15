@@ -3493,7 +3493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &224700680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12880,8 +12880,8 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 907243185}
-        m_TargetAssemblyTypeName: Room1Door, Assembly-CSharp
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: LockedDoor, Assembly-CSharp
         m_MethodName: TryOpenDoor
         m_Mode: 1
         m_Arguments:
