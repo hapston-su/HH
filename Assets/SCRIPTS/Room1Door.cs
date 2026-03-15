@@ -1,14 +1,12 @@
 using UnityEngine;
 
-public class LockedDoor : MonoBehaviour
+public class Room1Door : MonoBehaviour
 {
     public PlayerInventory inventory;
     public Transform door;
 
     public float openAngle = 90f;
     public float speed = 2f;
-
-    public CreepyDollController doll;   // reference to the doll
 
     private bool opening = false;
     private Quaternion closedRot;
@@ -22,25 +20,15 @@ public class LockedDoor : MonoBehaviour
 
     public void TryOpenDoor()
     {
-        if (inventory.hasKey)
+        if (inventory.hasRoom1Key)
         {
-            Debug.Log("Door unlocked!");
+            Debug.Log("Room 1 Door unlocked!");
             opening = true;
-
-            if (doll != null)
-            {
-                Invoke(nameof(ActivateDoll), 5f); // wait 5 seconds
-            }
         }
         else
         {
-            Debug.Log("Door is locked. Find the key.");
+            Debug.Log("You need the Room 1 key.");
         }
-    }
-
-    void ActivateDoll()
-    {
-        doll.ActivateDoll();
     }
 
     void Update()
