@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private WebSocketClient webSocketClient;
+    [SerializeField] private ElectricTorchHighPoly electricTorch;
 
     [Header("Game Status")]
     [SerializeField] private bool gameStarted;
@@ -39,6 +40,11 @@ public class GameManager : MonoBehaviour
         {
             webSocketClient = FindFirstObjectByType<WebSocketClient>();
         }
+
+        if (electricTorch == null)
+        {
+            electricTorch = FindFirstObjectByType<ElectricTorchHighPoly>();
+        }
     }
 
     private void Start()
@@ -54,7 +60,11 @@ public class GameManager : MonoBehaviour
         gotKey = false;
         gotMasterKey = false;
         needHelp = false;
-        torchOn = false;
+
+        if (torchOn)
+        {
+            SetTorch(false);
+        }
 
         SendAllStatuses();
         Debug.Log("Game Started");
@@ -68,7 +78,11 @@ public class GameManager : MonoBehaviour
         gotKey = false;
         gotMasterKey = false;
         needHelp = false;
-        torchOn = false;
+
+        if (torchOn)
+        {
+            SetTorch(false);
+        }
 
         SendAllStatuses();
         Debug.Log("Game statuses reset");
@@ -201,16 +215,21 @@ public class GameManager : MonoBehaviour
 
     public void SetTorch(bool value)
     {
+        if (torchOn == value)
+            return;
+
         torchOn = value;
 
         Debug.Log("Torch set to: " + (torchOn ? "ON" : "OFF"));
 
-        // Put your actual torch/light logic here.
-        // Example:
-        // if (playerTorchLight != null)
-        // {
-        //     playerTorchLight.enabled = torchOn;
-        // }
+        if (electricTorch != null)
+        {
+            electricTorch.ToggleTorch();
+        }
+        else
+        {
+            Debug.LogWarning("ElectricTorchHighPoly reference missing in GameManager.");
+        }
     }
 
     public void ToggleTorch()
