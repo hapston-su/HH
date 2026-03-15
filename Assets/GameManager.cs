@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool gotKey;
     [SerializeField] private bool gotMasterKey;
     [SerializeField] private bool needHelp;
+    [SerializeField] private bool torchOn;
 
     public bool GameStarted => gameStarted;
     public bool ExitedSuccessfully => exitedSuccessfully;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     public bool GotKey => gotKey;
     public bool GotMasterKey => gotMasterKey;
     public bool NeedHelp => needHelp;
+    public bool TorchOn => torchOn;
 
     private void Awake()
     {
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour
         gotKey = false;
         gotMasterKey = false;
         needHelp = false;
+        torchOn = false;
 
         SendAllStatuses();
         Debug.Log("Game Started");
@@ -65,6 +68,7 @@ public class GameManager : MonoBehaviour
         gotKey = false;
         gotMasterKey = false;
         needHelp = false;
+        torchOn = false;
 
         SendAllStatuses();
         Debug.Log("Game statuses reset");
@@ -193,6 +197,25 @@ public class GameManager : MonoBehaviour
     {
         gotMasterKey = value;
         SendStatus("GOT_MASTER_KEY", gotMasterKey);
+    }
+
+    public void SetTorch(bool value)
+    {
+        torchOn = value;
+
+        Debug.Log("Torch set to: " + (torchOn ? "ON" : "OFF"));
+
+        // Put your actual torch/light logic here.
+        // Example:
+        // if (playerTorchLight != null)
+        // {
+        //     playerTorchLight.enabled = torchOn;
+        // }
+    }
+
+    public void ToggleTorch()
+    {
+        SetTorch(!torchOn);
     }
 
     public void SyncAllStatusesToESP32()

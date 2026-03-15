@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 using NativeWS = NativeWebSocket.WebSocket;
 
 public class WebSocketClient : MonoBehaviour
@@ -90,9 +89,46 @@ public class WebSocketClient : MonoBehaviour
 
     private void IncomingMessageParser(string msg)
     {
-        int separatorIndex = msg.IndexOf(":");
-        if (separatorIndex < 0)
+        msg = msg.Trim();
+
+        // --------------------------------------------------
+        // Raw ESP32 torch toggle messages
+        // --------------------------------------------------
+        if (msg.Equals("TOURCH_ON", System.StringComparison.OrdinalIgnoreCase))
+        {
+            Debug.Log("ESP32 Torch ON");
+
+            if (GameManager.Instance != null)
+            {
+                // Replace with your actual torch/light method
+                GameManager.Instance.SetTorch(true);
+            }
+
             return;
+        }
+
+        if (msg.Equals("TOURCH_OFF", System.StringComparison.OrdinalIgnoreCase))
+        {
+            Debug.Log("ESP32 Torch OFF");
+
+            if (GameManager.Instance != null)
+            {
+                // Replace with your actual torch/light method
+                GameManager.Instance.SetTorch(false);
+            }
+
+            return;
+        }
+
+        // --------------------------------------------------
+        // Existing type:value messages
+        // --------------------------------------------------
+        int separatorIndex = msg.IndexOf(':');
+        if (separatorIndex < 0)
+        {
+            Debug.Log("Unknown raw message received: " + msg);
+            return;
+        }
 
         string type = msg.Substring(0, separatorIndex).Trim().ToLower();
         string value = msg.Substring(separatorIndex + 1).Trim();
