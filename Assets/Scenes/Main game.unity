@@ -12236,6 +12236,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4343516966030269455, guid: 94ec930e09ed941ed9e7ef4e9bae9e73, type: 3}
+--- !u!4 &841679925 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2342603476962826072, guid: c3a6c92941aff3a4a932f8c15e645de9, type: 3}
+  m_PrefabInstance: {fileID: 1102518984}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &848665618
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12481,7 +12486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d267a47f0ff644a9bb5746a82ed3c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CabinetDoorToggle
-  door: {fileID: 0}
+  door: {fileID: 841679925}
   openRotation: {x: 0, y: -100, z: 0}
   speed: 2
 --- !u!114 &883061942
@@ -16268,6 +16273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   webSocketClient: {fileID: 1637794640}
+  electricTorch: {fileID: 1750714820}
   gameStarted: 0
   exitedSuccessfully: 0
   gameOver: 0
