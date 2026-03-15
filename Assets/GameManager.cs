@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private WebSocketClient webSocketClient;
     [SerializeField] private GameObject electricTorch;
+    private ElectricTorchOnOff torchScript;
 
     [Header("Game Status")]
     [SerializeField] private bool gameStarted;
@@ -41,6 +42,9 @@ public class GameManager : MonoBehaviour
 
         if (electricTorch == null)
             electricTorch = GameObject.Find("Electric Torch HighPoly");
+
+        if (electricTorch != null)
+            torchScript = electricTorch.GetComponentInChildren<ElectricTorchOnOff>();
     }
 
     private void Start()
@@ -181,19 +185,28 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Torch set to: " + (torchOn ? "ON" : "OFF"));
 
-        if (electricTorch != null)
+        if (torchScript != null)
         {
-            electricTorch.SendMessage("ToggleTorch", SendMessageOptions.DontRequireReceiver);
+            torchScript.ToggleTorch();
         }
         else
         {
-            Debug.LogWarning("Electric Torch HighPoly not found.");
+            Debug.LogWarning("Torch script not found.");
         }
+
+        SendStatus("TORCH_ON", torchOn);
     }
 
     public void ToggleTorch()
     {
         SetTorch(!torchOn);
+    }
+
+    // Called when ESP32 button is pressed
+    public void ESP32_TorchButtonPressed()
+    {
+        Debug.Log("ESP32 Torch Button Pressed");
+        ToggleTorch();
     }
 
     public void SyncAllStatusesToESP32()
@@ -209,6 +222,7 @@ public class GameManager : MonoBehaviour
         SendStatus("GOT_KEY", gotKey);
         SendStatus("GOT_MASTER_KEY", gotMasterKey);
         SendStatus("NEED_HELP", needHelp);
+        SendStatus("TORCH_ON", torchOn);
     }
 
     private void SendStatus(string statusName, bool value)
