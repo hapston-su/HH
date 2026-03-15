@@ -8216,9 +8216,9 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: KeyPickup, Assembly-CSharp
-        m_MethodName: PickUpKey
+      - m_Target: {fileID: 596191846}
+        m_TargetAssemblyTypeName: Room2Key, Assembly-CSharp
+        m_MethodName: PickupKey
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12885,8 +12885,8 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LockedDoor, Assembly-CSharp
+      - m_Target: {fileID: 907243185}
+        m_TargetAssemblyTypeName: Room1Door, Assembly-CSharp
         m_MethodName: TryOpenDoor
         m_Mode: 1
         m_Arguments:
