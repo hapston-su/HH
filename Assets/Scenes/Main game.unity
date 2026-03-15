@@ -16268,6 +16268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   webSocketClient: {fileID: 1637794640}
+  electricTorch: {fileID: 1750714820}
   gameStarted: 0
   exitedSuccessfully: 0
   gameOver: 0
