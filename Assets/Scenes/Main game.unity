@@ -22453,7 +22453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WristMenuController
   wristMenuCanvas: {fileID: 1388661311}
   positionOffset: {x: 0, y: 0.2, z: 0}
-  rotationOffset: {x: 180, y: 90, z: 0}
+  rotationOffset: {x: 0, y: -90, z: 0}
   canvasScale: {x: 0.001, y: 0.001, z: 0.001}
   tiltThreshold: 60
   hideDelay: 0

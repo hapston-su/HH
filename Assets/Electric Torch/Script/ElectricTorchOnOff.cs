@@ -67,7 +67,9 @@ public class ElectricTorchOnOff : MonoBehaviour
     // GameManager / ESP32 can call this directly
     public void SetTorch(bool state)
     {
-        _flashLightOn = state;
+       // _flashLightOn = state;
+       ToggleTorch();
+       Debug.Log("ToggleTorch");
     }
 
     void NoBatteryLight()
