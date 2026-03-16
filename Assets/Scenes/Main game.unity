@@ -3699,7 +3699,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &224700680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11817,7 +11817,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 737206020}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1064395095}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: RestartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &737206020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15620,7 +15632,7 @@ GameObject:
   - component: {fileID: 984310421}
   - component: {fileID: 984310420}
   - component: {fileID: 984310419}
-  - component: {fileID: 984310418}
+  - component: {fileID: 984310422}
   m_Layer: 5
   m_Name: 'You Escaped '
   m_TagString: Untagged
@@ -15628,23 +15640,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &984310418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 984310417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &984310419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15700,8 +15695,8 @@ RectTransform:
   m_GameObject: {fileID: 984310417}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.007819686, y: 0.006788932, z: 0.001}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.01, y: 0.008681847, z: 0.0012788237}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1632554384}
   m_Father: {fileID: 0}
@@ -15711,6 +15706,25 @@ RectTransform:
   m_AnchoredPosition: {x: 304.414, y: 444.5}
   m_SizeDelta: {x: 606.8, y: 889}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &984310422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984310417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.UI.TrackedDeviceGraphicRaycaster
+  m_IgnoreReversedGraphics: 0
+  m_CheckFor2DOcclusion: 0
+  m_CheckFor3DOcclusion: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RaycastTriggerInteraction: 1
 --- !u!64 &991495997
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17551,16 +17565,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   webSocketClient: {fileID: 1637794640}
-  electricTorch: {fileID: 1750714820}
-  exitCanvas: {fileID: 984310417}
-  xrOrigin: {fileID: 438306883}
+  electricTorch: {fileID: 1750714830}
+  playerInventory: {fileID: 438306884}
   gameStarted: 0
   exitedSuccessfully: 0
   gameOver: 0
   gotKey: 0
   gotMasterKey: 0
   needHelp: 0
-  torchOn: 0
 --- !u!4 &1064395096
 Transform:
   m_ObjectHideFlags: 0
@@ -18229,13 +18241,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 959575103}
+        m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
+        m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -22440,11 +22452,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WristMenuController
   wristMenuCanvas: {fileID: 1388661311}
-  positionOffset: {x: 0, y: 0.05, z: 0}
-  rotationOffset: {x: 0, y: 0, z: 0}
-  canvasScale: {x: 0.0003, y: 0.0003, z: 0.0003}
+  positionOffset: {x: 0, y: 0.2, z: 0}
+  rotationOffset: {x: 180, y: 90, z: 0}
+  canvasScale: {x: 0.001, y: 0.001, z: 0.001}
   tiltThreshold: 60
-  hideDelay: 1.5
+  hideDelay: 0
 --- !u!64 &1204280370
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -22574,7 +22586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1207955052
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23057,7 +23069,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1280747079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24852,7 +24864,7 @@ MonoBehaviour:
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
+  m_DynamicPixelsPerUnit: 5
   m_PresetInfoIsWorld: 1
 --- !u!223 &1388661315
 Canvas:
@@ -32764,7 +32776,6 @@ GameObject:
   - component: {fileID: 1837601630}
   - component: {fileID: 1837601629}
   - component: {fileID: 1837601628}
-  - component: {fileID: 1837601627}
   - component: {fileID: 1837601632}
   - component: {fileID: 1837601633}
   m_Layer: 0
@@ -32790,18 +32801,6 @@ Transform:
   - {fileID: 4690866}
   m_Father: {fileID: 712797691}
   m_LocalEulerAnglesHint: {x: -89.98, y: 90, z: 0}
---- !u!114 &1837601627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837601625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44aad9b11cbdb48a3857e76677747de5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LockedDoor
 --- !u!114 &1837601628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35298,7 +35297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1967341913
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37561,7 +37560,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2129293150}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 959575103}
+        m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
+        m_MethodName: ExitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2129293150
 MonoBehaviour:
   m_ObjectHideFlags: 0
