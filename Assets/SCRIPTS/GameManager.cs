@@ -10,6 +10,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject electricTorch;
     private ElectricTorchOnOff torchScript;
 
+    [Header("Exit UI")]
+    [SerializeField] private GameObject exitCanvas;
+    [SerializeField] private GameObject xrOrigin;
+
     [Header("Game Status")]
     [SerializeField] private bool gameStarted;
     [SerializeField] private bool exitedSuccessfully;
@@ -50,6 +54,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SyncAllStatusesToESP32();
+
+        if (exitCanvas != null)
+            exitCanvas.SetActive(false);
     }
 
     public void StartGame()
@@ -86,7 +93,9 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        Debug.Log("Restart requested from ESP32");
+        Debug.Log("Restart requested");
+
+        Time.timeScale = 1f;
 
         ResetGameStatuses();
 
@@ -105,6 +114,8 @@ public class GameManager : MonoBehaviour
         SendStatus("NEED_HELP", needHelp);
 
         Debug.Log("Player Exited Successfully");
+
+        ShowExitUI();
     }
 
     public void PlayerGameOver()
@@ -116,6 +127,22 @@ public class GameManager : MonoBehaviour
         SendStatus("EXITED_SUCCESSFULLY", exitedSuccessfully);
 
         Debug.Log("Game Over");
+    }
+
+    void ShowExitUI()
+    {
+        Debug.Log("Showing Exit UI");
+
+        // Pause gameplay
+        Time.timeScale = 0f;
+
+        // Disable player movement
+        if (xrOrigin != null)
+            xrOrigin.SetActive(false);
+
+        // Show exit canvas
+        if (exitCanvas != null)
+            exitCanvas.SetActive(true);
     }
 
     public void PlayerGotKey()
@@ -202,7 +229,6 @@ public class GameManager : MonoBehaviour
         SetTorch(!torchOn);
     }
 
-    // Called when ESP32 button is pressed
     public void ESP32_TorchButtonPressed()
     {
         Debug.Log("ESP32 Torch Button Pressed");
@@ -235,5 +261,12 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("WebSocketClient reference missing.");
         }
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quit Game");
+
+        Application.Quit();
     }
 }
