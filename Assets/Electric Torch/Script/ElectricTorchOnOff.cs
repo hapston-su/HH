@@ -18,6 +18,7 @@ public class ElectricTorchOnOff : MonoBehaviour
     public float intensityLight = 2.5f;
 
     private bool _flashLightOn = false;
+    public bool IsTorchOn => _flashLightOn;
 
     [SerializeField] float _lightTime = 0.05f;
 
@@ -61,6 +62,12 @@ public class ElectricTorchOnOff : MonoBehaviour
     public void ToggleTorch()
     {
         _flashLightOn = !_flashLightOn;
+    }
+
+    // GameManager / ESP32 can call this directly
+    public void SetTorch(bool state)
+    {
+        _flashLightOn = state;
     }
 
     void NoBatteryLight()
