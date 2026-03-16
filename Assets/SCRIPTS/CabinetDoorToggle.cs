@@ -6,6 +6,9 @@ public class CabinetDoorToggle : MonoBehaviour
     public Vector3 openRotation = new Vector3(0, 90, 0);
     public float speed = 2f;
 
+    [Header("Audio")]
+    public AudioSource doorAudio;
+
     private bool isOpen = false;
     private Quaternion closedRot;
     private Quaternion openRot;
@@ -17,11 +20,22 @@ public class CabinetDoorToggle : MonoBehaviour
 
         closedRot = door.localRotation;
         openRot = Quaternion.Euler(door.localEulerAngles + openRotation);
+
+        // Automatically grab AudioSource if not assigned
+        if (doorAudio == null)
+            doorAudio = GetComponent<AudioSource>();
     }
 
     public void ToggleDoor()
     {
         isOpen = !isOpen;
+
+        // Play creak sound when door starts moving
+        if (doorAudio != null)
+        {
+            doorAudio.pitch = Random.Range(0.9f, 1.1f); // slight variation
+            doorAudio.Play();
+        }
     }
 
     void Update()

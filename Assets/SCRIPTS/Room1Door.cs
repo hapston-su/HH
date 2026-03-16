@@ -4,6 +4,7 @@ public class Room1Door : MonoBehaviour
 {
     public PlayerInventory inventory;
     public Transform door;
+    private AudioSource doorAudio;
 
     public float openAngle = 90f;
     public float speed = 2f;
@@ -16,20 +17,26 @@ public class Room1Door : MonoBehaviour
     {
         closedRot = door.localRotation;
         openRot = Quaternion.Euler(door.localEulerAngles + new Vector3(0, openAngle, 0));
+        doorAudio = GetComponent<AudioSource>();
     }
 
     public void TryOpenDoor()
+{
+    if (inventory.hasRoom1Key)
     {
-        if (inventory.hasRoom1Key)
+        Debug.Log("Door unlocked!");
+        opening = true;
+
+        if (doorAudio != null && !doorAudio.isPlaying)
         {
-            Debug.Log("Room 1 Door unlocked!");
-            opening = true;
-        }
-        else
-        {
-            Debug.Log("You need the Room 1 key.");
+            doorAudio.Play();
         }
     }
+    else
+    {
+        Debug.Log("Door is locked. Find the key.");
+    }
+}
 
     void Update()
     {

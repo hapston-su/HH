@@ -5,6 +5,8 @@ public class CreepyDollController : MonoBehaviour
     public Transform player;
     public Light flashlight;
 
+    private AudioSource teleportAudio;
+
     public float activationDelay = 5f;
     public float teleportInterval = 3f;
     public float teleportDistance = 2f;
@@ -14,6 +16,9 @@ public class CreepyDollController : MonoBehaviour
 
     void Start()
     {
+        // Get AudioSource attached to the doll
+        teleportAudio = GetComponent<AudioSource>();
+
         Invoke(nameof(ActivateDoll), activationDelay);
     }
 
@@ -64,9 +69,11 @@ public class CreepyDollController : MonoBehaviour
     void TeleportCloser()
     {
         float dist = Vector3.Distance(transform.position, player.position);
+
         // Stop teleporting if already close to player
         if (dist < 1.5f)
             return;
+
         Vector3 direction = (player.position - transform.position).normalized;
         Vector3 targetPos = transform.position + direction * teleportDistance;
 
@@ -75,6 +82,13 @@ public class CreepyDollController : MonoBehaviour
         if (!Physics.CheckSphere(targetPos, checkRadius))
         {
             transform.position = targetPos;
+
+            // PLAY TELEPORT SOUND
+            if (teleportAudio != null)
+            {
+                teleportAudio.pitch = Random.Range(0.9f, 1.1f);
+                teleportAudio.Play();
+            }
         }
     }
 }
