@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using NativeWS = NativeWebSocket.WebSocket;
 
 public class WebSocketClient : MonoBehaviour
@@ -89,76 +90,58 @@ public class WebSocketClient : MonoBehaviour
 
     private void IncomingMessageParser(string msg)
     {
-        msg = msg.Trim();
+        int separatorIndex = msg.IndexOf(":");
 
-        // --------------------------------------------------
-        // Raw ESP32 torch toggle messages
-        // --------------------------------------------------
-        if (msg.Equals("TOURCH_ON", System.StringComparison.OrdinalIgnoreCase))
-        {
-            Debug.Log("ESP32 Torch ON");
-
-            if (GameManager.Instance != null)
-            {
-                // Replace with your actual torch/light method
-                GameManager.Instance.SetTorch(true);
-            }
-
-            return;
-        }
-
-        if (msg.Equals("TOURCH_OFF", System.StringComparison.OrdinalIgnoreCase))
-        {
-            Debug.Log("ESP32 Torch OFF");
-
-            if (GameManager.Instance != null)
-            {
-                // Replace with your actual torch/light method
-                GameManager.Instance.SetTorch(false);
-            }
-
-            return;
-        }
-
-        // --------------------------------------------------
-        // Existing type:value messages
-        // --------------------------------------------------
-        int separatorIndex = msg.IndexOf(':');
         if (separatorIndex < 0)
         {
-            Debug.Log("Unknown raw message received: " + msg);
+            Debug.Log("Invalid message format: " + msg);
             return;
         }
 
         string type = msg.Substring(0, separatorIndex).Trim().ToLower();
-        string value = msg.Substring(separatorIndex + 1).Trim();
+        string value = msg.Substring(separatorIndex + 1).Trim().ToLower();
 
         if (type == "restart_button" && value == "1")
         {
             Debug.Log("ESP32 Restart Button Pressed");
 
             if (GameManager.Instance != null)
-            {
                 GameManager.Instance.RestartGame();
-            }
         }
         else if (type == "key_button" && value == "1")
         {
             Debug.Log("ESP32 Key Button Pressed");
 
             if (GameManager.Instance != null)
-            {
                 GameManager.Instance.PlayerGotKey();
-            }
         }
         else if (type == "need_help_clear" && value == "1")
         {
             Debug.Log("ESP32 Help Clear Button Pressed");
 
             if (GameManager.Instance != null)
-            {
                 GameManager.Instance.ClearHelpRequest();
-            }
+        }
+        else if (type == "torch_on" && value == "1")
+        {
+            Debug.Log("ESP32 Torch ON");
+
+            if (GameManager.Instance != null)
+                GameManager.Instance.TorchOn();
+        }
+        else if (type == "torch_off" && value == "1")
+        {
+            Debug.Log("ESP32 Torch OFF");
+
+            if (GameManager.Instance != null)
+                GameManager.Instance.TorchOff();
+        }
+        else if (type == "torch_toggle" && value == "1")
+        {
+            Debug.Log("ESP32 Torch TOGGLE");
+
+            if (GameManager.Instance != null)
+                GameManager.Instance.ToggleTorch();
         }
         else if (type == "button")
         {

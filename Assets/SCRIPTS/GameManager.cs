@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool gotKey;
     [SerializeField] private bool gotMasterKey;
     [SerializeField] private bool needHelp;
-    [SerializeField] private bool torchOn;
 
     public bool GameStarted => gameStarted;
     public bool ExitedSuccessfully => exitedSuccessfully;
@@ -29,7 +28,6 @@ public class GameManager : MonoBehaviour
     public bool GotKey => gotKey;
     public bool GotMasterKey => gotMasterKey;
     public bool NeedHelp => needHelp;
-    public bool TorchOn => torchOn;
 
     private void Awake()
     {
@@ -42,13 +40,14 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         if (webSocketClient == null)
+        {
             webSocketClient = FindFirstObjectByType<WebSocketClient>();
+        }
 
         if (electricTorch == null)
-            electricTorch = GameObject.Find("Electric Torch HighPoly");
-
-        if (electricTorch != null)
-            torchScript = electricTorch.GetComponentInChildren<ElectricTorchOnOff>();
+        {
+            electricTorch = FindFirstObjectByType<ElectricTorchOnOff>();
+        }
     }
 
     private void Start()
@@ -68,9 +67,6 @@ public class GameManager : MonoBehaviour
         gotMasterKey = false;
         needHelp = false;
 
-        if (torchOn)
-            SetTorch(false);
-
         SendAllStatuses();
         Debug.Log("Game Started");
     }
@@ -83,9 +79,6 @@ public class GameManager : MonoBehaviour
         gotKey = false;
         gotMasterKey = false;
         needHelp = false;
-
-        if (torchOn)
-            SetTorch(false);
 
         SendAllStatuses();
         Debug.Log("Game statuses reset");
@@ -147,7 +140,8 @@ public class GameManager : MonoBehaviour
 
     public void PlayerGotKey()
     {
-        if (gotKey) return;
+        if (gotKey)
+            return;
 
         gotKey = true;
         SendStatus("GOT_KEY", gotKey);
@@ -157,7 +151,8 @@ public class GameManager : MonoBehaviour
 
     public void PlayerLostKey()
     {
-        if (!gotKey) return;
+        if (!gotKey)
+            return;
 
         gotKey = false;
         SendStatus("GOT_KEY", gotKey);
@@ -167,7 +162,8 @@ public class GameManager : MonoBehaviour
 
     public void PlayerGotMasterKey()
     {
-        if (gotMasterKey) return;
+        if (gotMasterKey)
+            return;
 
         gotMasterKey = true;
         SendStatus("GOT_MASTER_KEY", gotMasterKey);
@@ -177,7 +173,8 @@ public class GameManager : MonoBehaviour
 
     public void PlayerLostMasterKey()
     {
-        if (!gotMasterKey) return;
+        if (!gotMasterKey)
+            return;
 
         gotMasterKey = false;
         SendStatus("GOT_MASTER_KEY", gotMasterKey);
@@ -203,26 +200,37 @@ public class GameManager : MonoBehaviour
         SetNeedHelp(false);
     }
 
-    public void SetTorch(bool value)
+    public void SetGameStarted(bool value)
     {
-        if (torchOn == value)
-            return;
-
-        torchOn = value;
-
-        Debug.Log("Torch set to: " + (torchOn ? "ON" : "OFF"));
-
-        if (torchScript != null)
-        {
-            torchScript.ToggleTorch();
-        }
-        else
-        {
-            Debug.LogWarning("Torch script not found.");
-        }
-
-        SendStatus("TORCH_ON", torchOn);
+        gameStarted = value;
+        SendStatus("GAME_STARTED", gameStarted);
     }
+
+    public void SetExitedSuccessfully(bool value)
+    {
+        exitedSuccessfully = value;
+        SendStatus("EXITED_SUCCESSFULLY", exitedSuccessfully);
+    }
+
+    public void SetGameOver(bool value)
+    {
+        gameOver = value;
+        SendStatus("GAME_OVER", gameOver);
+    }
+
+    public void SetGotKey(bool value)
+    {
+        gotKey = value;
+        SendStatus("GOT_KEY", gotKey);
+    }
+
+    public void SetGotMasterKey(bool value)
+    {
+        gotMasterKey = value;
+        SendStatus("GOT_MASTER_KEY", gotMasterKey);
+    }
+
+    // ---------- TORCH CONTROL ----------
 
     public void ToggleTorch()
     {
@@ -234,6 +242,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("ESP32 Torch Button Pressed");
         ToggleTorch();
     }
+
+    // ---------- ESP32 SYNC ----------
 
     public void SyncAllStatusesToESP32()
     {
@@ -248,7 +258,6 @@ public class GameManager : MonoBehaviour
         SendStatus("GOT_KEY", gotKey);
         SendStatus("GOT_MASTER_KEY", gotMasterKey);
         SendStatus("NEED_HELP", needHelp);
-        SendStatus("TORCH_ON", torchOn);
     }
 
     private void SendStatus(string statusName, bool value)
@@ -259,8 +268,15 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("WebSocketClient reference missing.");
+            Debug.LogWarning("WebSocketClient reference missing in GameManager.");
         }
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quit Game");
+
+        Application.Quit();
     }
 
     public void QuitGame()
