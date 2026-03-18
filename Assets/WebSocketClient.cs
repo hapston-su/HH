@@ -113,7 +113,7 @@ public class WebSocketClient : MonoBehaviour
             Debug.Log("ESP32 Key Button Pressed");
 
             if (GameManager.Instance != null)
-                GameManager.Instance.PlayerGotKey();
+                GameManager.Instance.PlayerGotMasterKey();
         }
         else if (type == "need_help_clear" && value == "1")
         {
@@ -127,14 +127,14 @@ public class WebSocketClient : MonoBehaviour
             Debug.Log("ESP32 Torch ON");
 
             if (GameManager.Instance != null)
-                GameManager.Instance.TorchOn();
+                GameManager.Instance.PlayerGotMasterKey();
         }
         else if (type == "torch_off" && value == "1")
         {
             Debug.Log("ESP32 Torch OFF");
 
             if (GameManager.Instance != null)
-                GameManager.Instance.TorchOff();
+                GameManager.Instance.PlayerGotMasterKey();
         }
         else if (type == "torch_toggle" && value == "1")
         {
