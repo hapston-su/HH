@@ -19,7 +19,8 @@ public class Room2Door : MonoBehaviour
         closedRot = door.localRotation;
         openRot = Quaternion.Euler(door.localEulerAngles + new Vector3(0, openAngle, 0));
 
-        escapeUI.SetActive(false);
+        if (escapeUI != null)
+            escapeUI.SetActive(false);
     }
 
     public void TryOpenDoor()
@@ -29,7 +30,7 @@ public class Room2Door : MonoBehaviour
             Debug.Log("Room 2 Door unlocked! You escaped!");
             opening = true;
 
-            Invoke("ShowEscapeUI", 1.5f); // delay so door opens first
+            Invoke(nameof(ShowEscapeUI), 1.5f); // delay so door opens first
         }
         else
         {
@@ -51,6 +52,20 @@ public class Room2Door : MonoBehaviour
 
     void ShowEscapeUI()
     {
+        if (escapeUI == null)
+        {
+            Debug.LogWarning("Escape UI not assigned!");
+            return;
+        }
+
+        // Place UI in front of player
+        Transform cam = Camera.main.transform;
+
+        escapeUI.transform.position = cam.position + cam.forward * 2f;
+        escapeUI.transform.rotation = Quaternion.LookRotation(
+            escapeUI.transform.position - cam.position
+        );
+
         escapeUI.SetActive(true);
 
         Time.timeScale = 0f; // stop the game
